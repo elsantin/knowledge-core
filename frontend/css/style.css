@@ -1,0 +1,102 @@
+/* --- COMENTARIO ESTRATÉGICO: Paleta de Colores y Tipografía Centralizada --- */
+:root {
+  --background-color: #121212;
+  --card-background: #1e1e1e;
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #b0b0b0;
+  --accent-color: #bb86fc;
+  --hover-border-color: #ffffff;
+
+  --font-primary: 'Roboto', sans-serif;
+  --font-secondary: 'Playfair Display', serif;
+}
+
+/* --- Reseteo Básico y Estilos Globales --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  line-height: 1.6;
+  padding: 2rem;
+}
+
+/* --- NUEVO: Estilos para los Títulos de Sección --- */
+.section-header {
+  font-family: var(--font-secondary);
+  font-size: 2.5rem;
+  color: var(--primary-text-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  margin-top: 3rem; /* Espacio entre secciones */
+}
+.section-header:first-of-type {
+  margin-top: 0; /* Sin margen superior para la primera sección */
+}
+
+/* --- Contenedor de Cuadrícula para las Tarjetas --- */
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- Estilo de las Tarjetas (Más limpias) --- */
+.prompt-card {
+  background-color: var(--card-background);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Alinea los elementos */
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  min-height: 220px; /* Altura mínima para consistencia */
+}
+
+.prompt-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--hover-border-color);
+}
+
+/* --- Estilos para los elementos dentro de las tarjetas --- */
+.prompt-card h2 {
+  font-family: var(--font-secondary);
+  color: var(--accent-color);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.prompt-description {
+  color: var(--secondary-text-color);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Empuja el botón hacia abajo */
+}
+
+/* Se eliminaron los estilos de 'pre' y 'prompt-category' que ya no se usan en la tarjeta */
+
+.copy-button {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-weight: bold;
+  align-self: flex-end; /* Lo alinea a la derecha */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-button:hover {
+  background-color: #d1a5ff;
+  transform: scale(1.05);
+}
