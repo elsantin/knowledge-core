@@ -1,120 +1,461 @@
-/* === KNOWLEDGE CORE - TEMA TROPICAL VERIFICACIÓN === */
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Fredoka+One&display=swap');
-
+/* === KNOWLEDGE CORE - TEMA TROPICAL MEJORADO === */
 :root {
-  --tropical-bg: linear-gradient(135deg, #1a4c2e 0%, #0f2419 100%);
-  --tropical-card: #2d7a4b;
-  --tropical-accent: #ffd700;
-  --tropical-hover: #ff6b35;
-  --tropical-text: #f0f8e8;
-  --tropical-shadow: rgba(255, 215, 0, 0.3);
+  --bg-primary: #2E7D32;
+  --bg-secondary: #FFC107;
+  --bg-card: #FF5722;
+  --text-primary: #1A1A1A;
+  --text-secondary: #2E2E2E;
+  --accent: #E91E63;
+  --hover: #FF9800;
+  --font-primary: 'Baloo 2', cursive;
+  --font-secondary: 'Fredoka One', cursive;
 }
 
+/* === RESET Y BASE === */
 * {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, #4CAF50 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
 body {
-  background: var(--tropical-bg) !important;
-  color: var(--tropical-text) !important;
-  font-family: 'Baloo 2', cursive !important;
-  padding: 2rem !important;
-  min-height: 100vh !important;
+  padding: 2rem;
 }
 
-/* Header súper visible */
+/* === HEADER === */
 header {
-  text-align: center !important;
-  background: var(--tropical-accent) !important;
-  color: #000 !important;
-  padding: 2rem !important;
-  border-radius: 25px !important;
-  margin-bottom: 3rem !important;
-  box-shadow: 0 15px 40px var(--tropical-shadow) !important;
-  border: 3px solid var(--tropical-hover) !important;
+  background: linear-gradient(45deg, var(--bg-secondary), #FFD54F);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 32px rgba(255, 193, 7, 0.3);
 }
 
 header h1 {
-  font-family: 'Fredoka One', cursive !important;
-  font-size: 3.5rem !important;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5) !important;
-  margin-bottom: 0.5rem !important;
+  font-family: var(--font-secondary);
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header p {
-  font-size: 1.4rem !important;
-  font-weight: 600 !important;
+  color: var(--text-secondary);
+  font-size: 1.3rem;
+  margin: 0 0 2rem 0;
+  font-weight: 600;
+}
+
+/* === BÚSQUEDA === */
+.search-container {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .search-container input {
-  width: 100% !important;
-  max-width: 500px !important;
-  padding: 1.2rem !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  border: 3px solid var(--tropical-hover) !important;
-  border-radius: 20px !important;
-  font-size: 1.1rem !important;
-  margin: 1rem auto !important;
-  display: block !important;
+  width: 100%;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid var(--accent);
+  border-radius: 25px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-family: var(--font-primary);
+  transition: all 0.3s ease;
 }
 
-/* Secciones súper visibles */
-h2.section-header {
-  background: linear-gradient(45deg, var(--tropical-hover), var(--tropical-accent)) !important;
-  color: #000 !important;
-  padding: 1.5rem !important;
-  border-radius: 20px !important;
-  font-family: 'Fredoka One', cursive !important;
-  font-size: 2.5rem !important;
-  text-align: center !important;
-  margin: 3rem 0 2rem 0 !important;
-  box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5) !important;
-  border: 3px solid var(--tropical-accent) !important;
+.search-container input:focus {
+  border-color: var(--hover);
+  outline: none;
+  box-shadow: 0 0 20px rgba(255, 152, 0, 0.3);
 }
 
-/* Grid tropical */
-div.prompt-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
-  gap: 2.5rem !important;
-  margin-bottom: 3rem !important;
+/* === MAIN CONTAINER === */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Tarjetas tropicales súper visibles */
-div.prompt-card {
-  background: var(--tropical-card) !important;
-  border: 4px solid var(--tropical-accent) !important;
-  border-radius: 25px !important;
-  padding: 2rem !important;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
-  transform: rotate(-1deg) !important;
-  transition: all 0.4s ease !important;
-  min-height: 280px !important;
-  display: flex !important;
-  flex-direction: column !important;
+/* === SECTION HEADERS === */
+.section-header {
+  font-family: var(--font-secondary);
+  font-size: 2.8rem;
+  color: var(--text-primary);
+  background: linear-gradient(45deg, var(--bg-card), #FF7043);
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  margin: 3rem 0 2rem 0;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-div.prompt-card:hover {
-  transform: rotate(0deg) scale(1.08) !important;
-  border-color: var(--tropical-hover) !important;
-  box-shadow: 0 20px 50px rgba(255, 107, 53, 0.6) !important;
-  background: #3d8a5b !important;
+.section-header:first-of-type {
+  margin-top: 0;
 }
 
-div.prompt-card h2 {
-  color: var(--tropical-accent) !important;
-  font-family: 'Fredoka One', cursive !important;
-  font-size: 1.6rem !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
-  margin-bottom: 1rem !important;
+/* === GRID === */
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
-p.prompt-description {
-  color: var(--tropical-text) !important;
-  font-size: 1.1rem !important;
-  line-height: 1.7 !important;
-  margin-bottom: 2rem !important;
-  flex: 1 1 auto !important;
+/* === TARJETAS === */
+.prompt-card {
+  background: linear-gradient(135deg, #1A1A1A, #2E2E2E);
+  border: 3px solid var(--accent);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 280px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.prompt-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--hover), var(--bg-secondary));
+}
+
+.prompt-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--hover);
+  box-shadow: 0 20px 40px rgba(255, 152, 0, 0.2);
+}
+
+/* === ELEMENTOS DE TARJETA === */
+.prompt-card h2 {
+  font-family: var(--font-secondary);
+  color: var(--bg-secondary);
+  font-size: 1.4rem;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.prompt-description {
+  color: #E0E0E0;
+  font-size: 1rem;
+  margin: 0;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+/* === BOTONES === */
+.toggle-prompt-button {
+  background: linear-gradient(45deg, var(--accent), #F06292);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toggle-prompt-button:hover {
+  background: linear-gradient(45deg, #F06292, var(--hover));
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+}
+
+.copy-button {
+  background: linear-gradient(45deg, var(--hover), #FFB74D);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.copy-button:hover {
+  background: linear-gradient(45deg, #FFB74D, var(--bg-secondary));
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* === PROMPT COMPLETO === */
+.full-prompt-container {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+
+.full-prompt-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #F0F0F0;
+  font-family: 'Courier New', monospace;
+}
+
+/* === SECCIONES === */
+.prompt-section {
+  margin-bottom: 5rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .prompt-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .section-header {
+    font-size: 2rem;
+  }
+
+  body {
+    padding: 1rem;
+  }
+}
+
+/* === SCROLLBAR PERSONALIZADA === */
+.full-prompt-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.full-prompt-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.full-prompt-container::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.full-prompt-container::-webkit-scrollbar-thumb:hover {
+  background: var(--hover);
+}
+/* === MODAL FLOTANTE OPTIMIZADO === */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-container {
+  background: linear-gradient(135deg, #1A1A1A, #2E2E2E);
+  border: 3px solid var(--accent);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: modalSlideIn 0.3s ease;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(45deg, var(--bg-card), #FF7043);
+  border-bottom: 2px solid var(--accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: var(--font-secondary);
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.modal-close-button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.modal-close-button:hover {
+  background: var(--hover);
+  transform: scale(1.1);
+}
+
+.modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-prompt-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #F0F0F0;
+  font-family: 'Courier New', monospace;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.modal-footer {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #1A1A1A, #2E2E2E);
+  border-top: 2px solid var(--accent);
+  display: flex;
+  justify-content: center;
+}
+
+.modal-copy-button {
+  background: linear-gradient(45deg, var(--hover), #FFB74D);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-copy-button:hover {
+  background: linear-gradient(45deg, #FFB74D, var(--bg-secondary));
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+}
+
+/* === ANIMACIONES === */
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* === SCROLLBAR PERSONALIZADA === */
+.modal-content::-webkit-scrollbar {
+  width: 12px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--hover);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-prompt-text {
+    font-size: 0.9rem;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* === OCULTAR CONTENEDOR INLINE (ya no se usa) === */
+.full-prompt-container {
+  display: none !important;
 }
