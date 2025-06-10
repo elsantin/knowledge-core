@@ -14,49 +14,47 @@ document.addEventListener("DOMContentLoaded", async () => {
   const modalCloseButton = document.querySelector(".modal-close-button");
   const modalCopyButton = document.getElementById("modalCopyButton");
 
-  // Funciones del modal
   function openModal(title, promptContent) {
     document.querySelector(".modal-title").textContent = title;
     modalPromptText.textContent = promptContent;
     promptModal.classList.add("show");
-    document.body.style.overflow = "hidden"; // Prevenir scroll del body
+    document.body.style.overflow = "hidden";
   }
 
   function closeModal() {
     promptModal.classList.remove("show");
-    document.body.style.overflow = ""; // Restaurar scroll del body
+    document.body.style.overflow = "";
   }
 
-  // Event listeners del modal
   modalCloseButton.addEventListener("click", closeModal);
-
-  // Cerrar con clic fuera del modal
   promptModal.addEventListener("click", (e) => {
-    if (e.target === promptModal) {
-      closeModal();
-    }
+    if (e.target === promptModal) closeModal();
   });
-
-  // Cerrar con tecla ESC
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && promptModal.classList.contains("show")) {
+    if (e.key === "Escape" && promptModal.classList.contains("show"))
       closeModal();
+  });
+
+  modalCopyButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(modalPromptText.textContent).then(() => {
+      modalCopyButton.textContent = "¡Copiado!";
+      setTimeout(() => (modalCopyButton.textContent = "Copiar Prompt"), 2000);
+    });
+  });
+
+  // === GO TO TOP BUTTON ===
+  const goToTopBtn = document.getElementById("goToTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      goToTopBtn.classList.add("show");
+    } else {
+      goToTopBtn.classList.remove("show");
     }
   });
 
-  // Botón copiar del modal
-  modalCopyButton.addEventListener("click", () => {
-    navigator.clipboard
-      .writeText(modalPromptText.textContent)
-      .then(() => {
-        modalCopyButton.textContent = "¡Copiado!";
-        setTimeout(() => {
-          modalCopyButton.textContent = "Copiar Prompt";
-        }, 2000);
-      })
-      .catch((err) => {
-        console.error("Error al copiar:", err);
-      });
+  goToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   // === CONFIGURACIÓN SANITY ===
@@ -66,14 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function fetchPromptsFromSanity() {
     try {
-      const query = `*[_type == "prompt"]{
-              _id,
-              title,
-              description,
-              category,
-              promptContent
-          }`;
-
+      const query = `*[_type == "prompt"]{_id,title,description,category,promptContent}`;
       const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${encodeURIComponent(
         query
       )}`;
@@ -111,19 +102,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     prompt: item.promptContent || "Contenido no disponible",
   }));
 
-  console.log("🎯 Artifacts procesados para renderizado:", prompts.length);
-
   if (prompts.length === 0) {
-    console.warn("⚠️ No se encontraron Intelligence Artifacts");
     mainContainer.innerHTML =
       '<p style="color: #FFC107; text-align: center; padding: 2rem;">No se encontraron Intelligence Artifacts.</p>';
     return;
   }
 
+  // === GENERAR NAVEGACIÓN DINÁMICA ===
+  const categories = [...new Set(prompts.map((p) => p.category))];
+  const navbarCategories = document.getElementById("navbarCategories");
+
+  categories.forEach((category) => {
+    const categorySlug = category.toLowerCase().replace(/\s+/g, "-");
+    const navItem = document.createElement("a");
+    navItem.href = `#${categorySlug}`;
+    navItem.className = "navbar-item";
+    navItem.textContent = category;
+    navItem.dataset.category = categorySlug;
+
+    navbarCategories.appendChild(navItem);
+  });
+
+  // === NAVEGACIÓN ACTIVA ===
+  function updateActiveNavItem() {
+    const navItems = document.querySelectorAll(".navbar-item");
+    const sections = document.querySelectorAll(".prompt-section");
+    let current = "";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 200;
+      if (window.pageYOffset >= sectionTop) {
+        current = section.id;
+      }
+    });
+
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (
+        item.dataset.category === current ||
+        (current === "" && item.dataset.category === "all")
+      ) {
+        item.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveNavItem);
+
   // === RENDERIZADO ===
   mainContainer.innerHTML = "";
-
-  // Agrupar por categoría
   const groupedPrompts = prompts.reduce((acc, prompt) => {
     const category = prompt.category || "General";
     if (!acc[category]) acc[category] = [];
@@ -131,12 +158,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return acc;
   }, {});
 
-  console.log("📁 Categorías encontradas:", Object.keys(groupedPrompts));
-
-  // Renderizar secciones
   Object.keys(groupedPrompts).forEach((categoryName) => {
+    const categorySlug = categoryName.toLowerCase().replace(/\s+/g, "-");
+
     const section = document.createElement("section");
     section.className = "prompt-section";
+    section.id = categorySlug;
 
     const header = document.createElement("h2");
     header.className = "section-header";
@@ -149,51 +176,36 @@ document.addEventListener("DOMContentLoaded", async () => {
       const card = document.createElement("div");
       card.className = "prompt-card";
 
-      // Título
       const title = document.createElement("h2");
       title.textContent = promptData.title;
 
-      // Descripción
       const description = document.createElement("p");
       description.className = "prompt-description";
       description.textContent = promptData.description;
 
-      // Botón ver prompt completo (abre modal)
       const viewButton = document.createElement("button");
       viewButton.className = "toggle-prompt-button";
       viewButton.textContent = "Ver Prompt Completo";
-
       viewButton.addEventListener("click", (e) => {
         e.stopPropagation();
         openModal(promptData.title, promptData.prompt);
       });
 
-      // Botón copiar (en la tarjeta)
       const copyButton = document.createElement("button");
       copyButton.className = "copy-button";
       copyButton.textContent = "Copiar Prompt";
-
       copyButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        navigator.clipboard
-          .writeText(promptData.prompt)
-          .then(() => {
-            copyButton.textContent = "¡Copiado!";
-            setTimeout(() => {
-              copyButton.textContent = "Copiar Prompt";
-            }, 2000);
-          })
-          .catch((err) => {
-            console.error("Error al copiar:", err);
-          });
+        navigator.clipboard.writeText(promptData.prompt).then(() => {
+          copyButton.textContent = "¡Copiado!";
+          setTimeout(() => (copyButton.textContent = "Copiar Prompt"), 2000);
+        });
       });
 
-      // Ensamblar tarjeta
       card.appendChild(title);
       card.appendChild(description);
       card.appendChild(viewButton);
       card.appendChild(copyButton);
-
       gridContainer.appendChild(card);
     });
 
@@ -227,7 +239,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         });
 
-        // Ocultar secciones vacías
         allSections.forEach((section) => {
           const visibleCards = section.querySelectorAll(
             '.prompt-card:not([style*="none"])'

@@ -15,21 +15,40 @@
 </head>
 
 <body>
+    <div id="top"></div>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span class="navbar-logo">🌴</span>
+            <span class="navbar-title">Knowledge Core</span>
+        </div>
+        <div class="navbar-menu">
+            <div id="navbarCategories" class="navbar-categories">
+                <a href="#top" class="navbar-item navbar-home active" id="homeNavLink">🏠 Home</a>
+            </div>
+        </div>
+    </nav>
+
     <header>
         <h1>Knowledge Core</h1>
         <p>Intelligence Artifacts Sanctuary</p>
         <div class="search-container">
-            <input type="text" placeholder="🔍 Buscar artifacts por título o contenido...">
+            <input type="text" placeholder="🔍 Search artifacts by title or content...">
         </div>
     </header>
 
     <main>
         <div id="santuario-container">
             <p style="text-align: center; color: #FFC107; padding: 2rem; font-size: 1.2rem;">
-                🌴 Cargando Intelligence Artifacts desde Sanity...
+                🌴 Loading Intelligence Artifacts from Sanity...
             </p>
         </div>
     </main>
+
+    <button id="goToTopBtn" class="go-to-top">
+        <span>↑</span>
+        <span class="go-to-top-text">TOP</span>
+    </button>
 
     <!-- Modal para Prompt Completo -->
     <div id="promptModal" class="modal-overlay">
